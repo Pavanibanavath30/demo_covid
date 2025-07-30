@@ -4,7 +4,7 @@ from pydantic import BaseModel
 import pandas as pd
 import numpy as np
 
-data=joblib.load("D:\Demo\ml_source\covid_diag.pkl")
+data=joblib.load("covid_diag.pkl")
 class inp_data(BaseModel):
     Age: int
     Gender: int
