@@ -3,8 +3,8 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import pandas as pd
 import numpy as np
+model = joblib.load("covid_diag.pkl")   
 
-data=joblib.load("covid_diag.pkl")
 class inp_data(BaseModel):
     Age: int
     Gender: int
