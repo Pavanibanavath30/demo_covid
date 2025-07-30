@@ -1,9 +1,9 @@
 import joblib
 from fastapi import FastAPI
 from pydantic import BaseModel
-import pandas as pd
 import numpy as np
-model = joblib.load("covid_diag.pkl")   
+
+model = joblib.load("covid_diag.pkl")  # If it's in the same folder as main.py
 
 class inp_data(BaseModel):
     Age: int
@@ -21,10 +21,10 @@ app = FastAPI()
 def root_msg():
     return {"Message": "Welcome to the Covid Diagnosis API"}
 @app.post("/predict")
-def predict(data: inp_data):
+def predict(Data: inp_data):
     #inp=pd.DataFrame([data.dict()])
-    inp=np.array([{Data.Age, Data.Gender, Data.Fever, Data.Cough, Data.Fatigue, Data.Breathlessness, Data.Comorbidity, Data.Stage, Data.Type, Data.Tumor_Size} for Data in inp])
-    prd=data.predict(inp)[0]
+    inp=np.array([[Data.Age, Data.Gender, Data.Fever, Data.Cough, Data.Fatigue, Data.Breathlessness, Data.Comorbidity, Data.Stage, Data.Type, Data.Tumor_Size]])
+    prd=model.predict(inp)[0]
     return {"Prediction": prd}
     
     
